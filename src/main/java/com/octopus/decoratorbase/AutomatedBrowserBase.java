@@ -19,6 +19,20 @@ public class AutomatedBrowserBase implements AutomatedBrowser {
     }
 
     @Override
+    public void captureHarFile() {
+        if (getAutomatedBrowser() != null) {
+            getAutomatedBrowser().captureHarFile();
+        }
+    }
+
+    @Override
+    public void saveHarFile(final String file) {
+        if (getAutomatedBrowser() != null) {
+            getAutomatedBrowser().saveHarFile(file);
+        }
+    }
+
+    @Override
     public DesiredCapabilities getDesiredCapabilities() {
         if (getAutomatedBrowser() != null) {
             return getAutomatedBrowser().getDesiredCapabilities();

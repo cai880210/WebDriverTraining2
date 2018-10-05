@@ -17,6 +17,10 @@ public interface AutomatedBrowser {
 
     void goTo(String url);
 
+    void captureHarFile();
+
+    void saveHarFile(String file);
+
     void clickElementWithId(String id);
 
     void clickElementWithId(String id, int waitTime);

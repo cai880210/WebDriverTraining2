@@ -270,4 +270,22 @@ public class FormTest {
             automatedBrowser.destroy();
         }
     }
+
+    @Test
+    public void captureHarFile() throws URISyntaxException {
+        final AutomatedBrowser automatedBrowser =
+                AUTOMATED_BROWSER_FACTORY.getAutomatedBrowser("FirefoxHeadless");
+
+        try {
+            automatedBrowser.init();
+            automatedBrowser.captureHarFile();
+            automatedBrowser.goTo("https://octopus.com/");
+        } finally {
+            try {
+                automatedBrowser.saveHarFile("test.har");
+            } finally {
+                automatedBrowser.destroy();
+            }
+        }
+    }
 }
