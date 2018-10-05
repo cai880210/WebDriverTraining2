@@ -120,4 +120,41 @@ public class FormTest {
             automatedBrowser.destroy();
         }
     }
+
+    @Test
+    public void formTestWithSimpleBy() throws URISyntaxException {
+        final AutomatedBrowser automatedBrowser = AUTOMATED_BROWSER_FACTORY.getAutomatedBrowser("ChromeNoImplicitWait");
+
+        final String formButtonLocator = "button_element";
+        final String formTextBoxLocator = "text_element";
+        final String formTextAreaLocator = "textarea_element";
+        final String formDropDownListLocator = "[name=select_element]";
+
+        final String formCheckboxLocator = "//*[@name=\"checkbox1_element\"]";
+
+        final String messageLocator = "message";
+
+        try {
+            automatedBrowser.init();
+
+            automatedBrowser.goTo(FormTest.class.getResource("/form.html").toURI().toString());
+
+            automatedBrowser.clickElement(formButtonLocator, 10);
+            assertEquals("Button Clicked", automatedBrowser.getTextFromElement(messageLocator));
+
+            automatedBrowser.populateElement(formTextBoxLocator, "test text", 10);
+            assertEquals("Text Input Changed", automatedBrowser.getTextFromElement(messageLocator));
+
+            automatedBrowser.populateElement(formTextAreaLocator, "test text", 10);
+            assertEquals("Text Area Changed", automatedBrowser.getTextFromElement(messageLocator));
+
+            automatedBrowser.selectOptionByTextFromSelect("Option 2.1", formDropDownListLocator, 10);
+            assertEquals("Select Changed", automatedBrowser.getTextFromElement(messageLocator));
+
+            automatedBrowser.clickElement(formCheckboxLocator, 10);
+            assertEquals("Checkbox Changed", automatedBrowser.getTextFromElement(messageLocator));
+        } finally {
+            automatedBrowser.destroy();
+        }
+    }
 }

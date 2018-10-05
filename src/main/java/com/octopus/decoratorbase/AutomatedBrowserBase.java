@@ -231,4 +231,62 @@ public class AutomatedBrowserBase implements AutomatedBrowser {
         }
         return null;
     }
+
+    @Override
+    public void clickElement(final String locator) {
+        if (getAutomatedBrowser() != null) {
+            getAutomatedBrowser().clickElement(locator);
+        }
+    }
+
+    @Override
+    public void clickElement(final String locator, final int waitTime) {
+        if (getAutomatedBrowser() != null) {
+            getAutomatedBrowser().clickElement(locator, waitTime);
+        }
+    }
+
+    @Override
+    public void selectOptionByTextFromSelect(final String optionText, final String locator) {
+        if (getAutomatedBrowser() != null) {
+            getAutomatedBrowser().selectOptionByTextFromSelect(optionText, locator);
+        }
+    }
+
+    @Override
+    public void selectOptionByTextFromSelect(final String optionText, final String locator, final int waitTime) {
+        if (getAutomatedBrowser() != null) {
+            getAutomatedBrowser().selectOptionByTextFromSelect(optionText, locator, waitTime);
+        }
+    }
+
+    @Override
+    public void populateElement(final String locator, final String text) {
+        if (getAutomatedBrowser() != null) {
+            getAutomatedBrowser().populateElement(locator, text);
+        }
+    }
+
+    @Override
+    public void populateElement(final String locator, final String text, final int waitTime) {
+        if (getAutomatedBrowser() != null) {
+            getAutomatedBrowser().populateElement(locator, text, waitTime);
+        }
+    }
+
+    @Override
+    public String getTextFromElement(final String locator) {
+        if (getAutomatedBrowser() != null) {
+            return getAutomatedBrowser().getTextFromElement(locator);
+        }
+        return null;
+    }
+
+    @Override
+    public String getTextFromElement(final String locator, final int waitTime) {
+        if (getAutomatedBrowser() != null) {
+            return getAutomatedBrowser().getTextFromElement(locator, waitTime);
+        }
+        return null;
+    }
 }
