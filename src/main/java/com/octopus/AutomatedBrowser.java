@@ -23,6 +23,8 @@ public interface AutomatedBrowser {
 
     void saveHarFile(String file);
 
+    void blockRequestTo(String url, int responseCode);
+
     void clickElementWithId(String id);
 
     void clickElementWithId(String id, int waitTime);

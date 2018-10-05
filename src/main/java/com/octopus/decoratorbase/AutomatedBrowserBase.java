@@ -40,6 +40,13 @@ public class AutomatedBrowserBase implements AutomatedBrowser {
     }
 
     @Override
+    public void blockRequestTo(final String url, final int responseCode) {
+        if (getAutomatedBrowser() != null) {
+            getAutomatedBrowser().blockRequestTo(url, responseCode);
+        }
+    }
+
+    @Override
     public DesiredCapabilities getDesiredCapabilities() {
         if (getAutomatedBrowser() != null) {
             return getAutomatedBrowser().getDesiredCapabilities();

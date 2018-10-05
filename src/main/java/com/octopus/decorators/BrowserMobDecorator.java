@@ -3,9 +3,13 @@ package com.octopus.decorators;
 import com.octopus.AutomatedBrowser;
 import com.octopus.decoratorbase.AutomatedBrowserBase;
 import com.octopus.exceptions.SaveException;
+import io.netty.handler.codec.http.DefaultHttpResponse;
+import io.netty.handler.codec.http.HttpResponse;
+import io.netty.handler.codec.http.HttpResponseStatus;
 import net.lightbody.bmp.BrowserMobProxy;
 import net.lightbody.bmp.BrowserMobProxyServer;
 import net.lightbody.bmp.proxy.CaptureType;
+import org.apache.http.HttpHeaders;
 import org.openqa.selenium.Proxy;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
@@ -13,6 +17,7 @@ import org.openqa.selenium.remote.DesiredCapabilities;
 import java.io.File;
 import java.io.IOException;
 import java.util.EnumSet;
+import java.util.regex.Pattern;
 
 public class BrowserMobDecorator extends AutomatedBrowserBase {
 
@@ -24,22 +29,18 @@ public class BrowserMobDecorator extends AutomatedBrowserBase {
 
     @Override
     public DesiredCapabilities getDesiredCapabilities() {
-
         proxy = new BrowserMobProxyServer();
-
         proxy.start(0);
-
-        final Proxy seleniumProxy = new Proxy();
-        final String proxyStr = "localhost:" + proxy.getPort();
-        seleniumProxy.setHttpProxy(proxyStr);
-        seleniumProxy.setSslProxy(proxyStr);
-        seleniumProxy.setSocksProxy(proxyStr);
 
         final DesiredCapabilities desiredCapabilities =
                 getAutomatedBrowser().getDesiredCapabilities();
 
-        desiredCapabilities.setCapability(CapabilityType.PROXY, seleniumProxy);
+        final Proxy seleniumProxy = new Proxy();
+        final String proxyStr = "localhost:" + proxy.getPort();
 
+        seleniumProxy.setHttpProxy(proxyStr);
+        seleniumProxy.setSslProxy(proxyStr);
+        desiredCapabilities.setCapability(CapabilityType.PROXY, seleniumProxy);
         return desiredCapabilities;
     }
 
@@ -73,5 +74,25 @@ public class BrowserMobDecorator extends AutomatedBrowserBase {
         } catch (final IOException ex) {
             throw new SaveException(ex);
         }
+    }
+
+    @Override
+    public void blockRequestTo(String url, int responseCode) {
+        proxy.addRequestFilter((request, contents, messageInfo) -> {
+            if (Pattern.compile(url).matcher(messageInfo.getOriginalUrl()).matches()) {
+                final HttpResponse response = new DefaultHttpResponse(
+                        request.getProtocolVersion(),
+                        HttpResponseStatus.valueOf(responseCode));
+
+                response.headers().add(HttpHeaders.CONNECTION, "Close");
+
+                return response;
+            }
+
+            return null;
+
+        });
+
+        getAutomatedBrowser().blockRequestTo(url, responseCode);
     }
 }
