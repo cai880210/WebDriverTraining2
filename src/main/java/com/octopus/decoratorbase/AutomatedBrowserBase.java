@@ -54,6 +54,13 @@ public class AutomatedBrowserBase implements AutomatedBrowser {
     }
 
     @Override
+    public void maximizeWindow() {
+        if (getAutomatedBrowser() != null) {
+            getAutomatedBrowser().maximizeWindow();
+        }
+    }
+
+    @Override
     public DesiredCapabilities getDesiredCapabilities() {
         if (getAutomatedBrowser() != null) {
             return getAutomatedBrowser().getDesiredCapabilities();

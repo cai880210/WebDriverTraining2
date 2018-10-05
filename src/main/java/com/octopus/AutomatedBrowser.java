@@ -27,6 +27,8 @@ public interface AutomatedBrowser {
 
     void alterResponseFrom(String url, int responseCode, String  responseBody);
 
+    void maximizeWindow();
+
     void clickElementWithId(String id);
 
     void clickElementWithId(String id, int waitTime);

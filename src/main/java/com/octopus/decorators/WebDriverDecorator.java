@@ -40,6 +40,11 @@ public class WebDriverDecorator extends AutomatedBrowserBase {
     }
 
     @Override
+    public void maximizeWindow() {
+        webDriver.manage().window().maximize();
+    }
+
+    @Override
     public void clickElementWithId(final String id) {
         webDriver.findElement(By.id(id)).click();
     }

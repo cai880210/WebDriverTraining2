@@ -23,4 +23,9 @@ public class BrowserStackAndroidDecorator extends AutomatedBrowserBase {
 
         return caps;
     }
+
+    @Override
+    public void maximizeWindow() {
+        // do nothing
+    }
 }
