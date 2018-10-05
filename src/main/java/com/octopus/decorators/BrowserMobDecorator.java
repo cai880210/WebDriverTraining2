@@ -95,4 +95,16 @@ public class BrowserMobDecorator extends AutomatedBrowserBase {
 
         getAutomatedBrowser().blockRequestTo(url, responseCode);
     }
+
+    @Override
+    public void alterResponseFrom(final String url, final int responseCode, final String responseBody) {
+        proxy.addResponseFilter((response, contents, messageInfo) -> {
+            if (Pattern.compile(url).matcher(messageInfo.getOriginalUrl()).matches()) {
+                contents.setTextContents(responseBody);
+                response.setStatus(HttpResponseStatus.valueOf(responseCode));
+            }
+        });
+
+        getAutomatedBrowser().alterResponseFrom(url, responseCode, responseBody);
+    }
 }

@@ -25,6 +25,8 @@ public interface AutomatedBrowser {
 
     void blockRequestTo(String url, int responseCode);
 
+    void alterResponseFrom(String url, int responseCode, String  responseBody);
+
     void clickElementWithId(String id);
 
     void clickElementWithId(String id, int waitTime);
