@@ -2,6 +2,7 @@ package com.octopus.decoratorbase;
 
 import com.octopus.AutomatedBrowser;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
 
 public class AutomatedBrowserBase implements AutomatedBrowser {
     private AutomatedBrowser automatedBrowser;
@@ -15,6 +16,15 @@ public class AutomatedBrowserBase implements AutomatedBrowser {
 
     public AutomatedBrowser getAutomatedBrowser() {
         return automatedBrowser;
+    }
+
+    @Override
+    public DesiredCapabilities getDesiredCapabilities() {
+        if (getAutomatedBrowser() != null) {
+            return getAutomatedBrowser().getDesiredCapabilities();
+        }
+
+        return new DesiredCapabilities();
     }
 
     @Override

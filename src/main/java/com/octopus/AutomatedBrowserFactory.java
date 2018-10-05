@@ -10,11 +10,19 @@ public class AutomatedBrowserFactory {
     public AutomatedBrowser getAutomatedBrowser(final String browser) {
 
         if ("Chrome".equalsIgnoreCase(browser)) {
-            return getChromeBrowser();
+            return getChromeBrowser(false);
+        }
+
+        if ("ChromeHeadless".equalsIgnoreCase(browser)) {
+            return getChromeBrowser(true);
         }
 
         if ("Firefox".equalsIgnoreCase(browser)) {
-            return getFirefoxBrowser();
+            return getFirefoxBrowser(false);
+        }
+
+        if ("FirefoxHeadless".equalsIgnoreCase(browser)) {
+            return getFirefoxBrowser(true);
         }
 
         if ("ChromeNoImplicitWait".equalsIgnoreCase(browser)) {
@@ -29,19 +37,19 @@ public class AutomatedBrowserFactory {
 
     }
 
-    private AutomatedBrowser getChromeBrowser() {
-        return new ChromeDecorator(
-            new ImplicitWaitDecorator(10,
-                new WebDriverDecorator()
-            )
+    private AutomatedBrowser getChromeBrowser(final boolean headless) {
+        return new ChromeDecorator(headless,
+                new ImplicitWaitDecorator(10,
+                        new WebDriverDecorator()
+                )
         );
     }
 
-    private AutomatedBrowser getFirefoxBrowser() {
-        return new FirefoxDecorator(
-            new ImplicitWaitDecorator(10,
-                new WebDriverDecorator()
-            )
+    private AutomatedBrowser getFirefoxBrowser(final boolean headless) {
+        return new FirefoxDecorator(headless,
+                new ImplicitWaitDecorator(10,
+                        new WebDriverDecorator()
+                )
         );
     }
 

@@ -1,12 +1,15 @@
 package com.octopus;
 
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
 
 public interface AutomatedBrowser {
 
     WebDriver getWebDriver();
 
     void setWebDriver(WebDriver webDriver);
+
+    DesiredCapabilities getDesiredCapabilities();
 
     void init();
 
