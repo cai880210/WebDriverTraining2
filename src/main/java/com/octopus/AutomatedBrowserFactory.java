@@ -30,6 +30,22 @@ public class AutomatedBrowserFactory {
             return getFirefoxBrowserNoImplicitWait();
         }
 
+        if ("BrowserStackEdge".equalsIgnoreCase(browser)) {
+            return getBrowserStackEdge();
+        }
+
+        if ("BrowserStackEdgeNoImplicitWait".equalsIgnoreCase(browser)) {
+            return getBrowserStackEdgeNoImplicitWait();
+        }
+
+        if ("BrowserStackAndroid".equalsIgnoreCase(browser)) {
+            return getBrowserStackAndroid();
+        }
+
+        if ("BrowserStackAndroidNoImplicitWait".equalsIgnoreCase(browser)) {
+            return getBrowserStackAndroidNoImplicitWait();
+        }
+
         throw new IllegalArgumentException("Unknown browser " + browser);
 
     }
@@ -65,6 +81,42 @@ public class AutomatedBrowserFactory {
     private AutomatedBrowser getFirefoxBrowserNoImplicitWait() {
         return new FirefoxDecorator(
                 new BrowserMobDecorator(
+                        new WebDriverDecorator()
+                )
+        );
+    }
+
+    private AutomatedBrowser getBrowserStackEdge() {
+        return new BrowserStackDecorator(
+                new BrowserStackEdgeDecorator(
+                        new ImplicitWaitDecorator(10,
+                                new WebDriverDecorator()
+                        )
+                )
+        );
+    }
+
+    private AutomatedBrowser getBrowserStackEdgeNoImplicitWait() {
+        return new BrowserStackDecorator(
+                new BrowserStackEdgeDecorator(
+                        new WebDriverDecorator()
+                )
+        );
+    }
+
+    private AutomatedBrowser getBrowserStackAndroid() {
+        return new BrowserStackDecorator(
+                new BrowserStackAndroidDecorator(
+                        new ImplicitWaitDecorator(10,
+                                new WebDriverDecorator()
+                        )
+                )
+        );
+    }
+
+    private AutomatedBrowser getBrowserStackAndroidNoImplicitWait() {
+        return new BrowserStackDecorator(
+                new BrowserStackAndroidDecorator(
                         new WebDriverDecorator()
                 )
         );
