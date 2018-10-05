@@ -1,9 +1,6 @@
 package com.octopus;
 
-import com.octopus.decorators.ChromeDecorator;
-import com.octopus.decorators.FirefoxDecorator;
-import com.octopus.decorators.ImplicitWaitDecorator;
-import com.octopus.decorators.WebDriverDecorator;
+import com.octopus.decorators.*;
 
 public class AutomatedBrowserFactory {
 
@@ -40,7 +37,9 @@ public class AutomatedBrowserFactory {
     private AutomatedBrowser getChromeBrowser(final boolean headless) {
         return new ChromeDecorator(headless,
                 new ImplicitWaitDecorator(10,
-                        new WebDriverDecorator()
+                        new BrowserMobDecorator(
+                                new WebDriverDecorator()
+                        )
                 )
         );
     }
@@ -48,20 +47,26 @@ public class AutomatedBrowserFactory {
     private AutomatedBrowser getFirefoxBrowser(final boolean headless) {
         return new FirefoxDecorator(headless,
                 new ImplicitWaitDecorator(10,
-                        new WebDriverDecorator()
+                        new BrowserMobDecorator(
+                                new WebDriverDecorator()
+                        )
                 )
         );
     }
 
     private AutomatedBrowser getChromeBrowserNoImplicitWait() {
         return new ChromeDecorator(
-                new WebDriverDecorator()
+                new BrowserMobDecorator(
+                        new WebDriverDecorator()
+                )
         );
     }
 
     private AutomatedBrowser getFirefoxBrowserNoImplicitWait() {
         return new FirefoxDecorator(
-                new WebDriverDecorator()
+                new BrowserMobDecorator(
+                        new WebDriverDecorator()
+                )
         );
     }
 }

@@ -10,8 +10,9 @@ http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <java.version>1.8</java.version>
-    <selenium.version>3.12.0</selenium.version>
+    <selenium.version>3.14.0</selenium.version>
     <junit.version>4.12</junit.version>
+    <browsermob.version>2.1.5</browsermob.version>
   </properties>
   <build>
     <plugins>
@@ -37,6 +38,11 @@ http://maven.apache.org/xsd/maven-4.0.0.xsd">
       <artifactId>junit</artifactId>
       <version>${junit.version}</version>
       <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>net.lightbody.bmp</groupId>
+      <artifactId>browsermob-core</artifactId>
+      <version>${browsermob.version}</version>
     </dependency>
   </dependencies>
 </project>
