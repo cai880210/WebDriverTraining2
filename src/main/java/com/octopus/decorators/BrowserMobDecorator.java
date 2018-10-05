@@ -5,12 +5,14 @@ import com.octopus.decoratorbase.AutomatedBrowserBase;
 import com.octopus.exceptions.SaveException;
 import net.lightbody.bmp.BrowserMobProxy;
 import net.lightbody.bmp.BrowserMobProxyServer;
+import net.lightbody.bmp.proxy.CaptureType;
 import org.openqa.selenium.Proxy;
 import org.openqa.selenium.remote.CapabilityType;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.EnumSet;
 
 public class BrowserMobDecorator extends AutomatedBrowserBase {
 
@@ -51,6 +53,16 @@ public class BrowserMobDecorator extends AutomatedBrowserBase {
 
     @Override
     public void captureHarFile() {
+        proxy.newHar();
+    }
+
+    @Override
+    public void captureCompleteHarFile() {
+        final EnumSet<CaptureType> captureTypes =
+                CaptureType.getAllContentCaptureTypes();
+        captureTypes.addAll(CaptureType.getHeaderCaptureTypes());
+        captureTypes.addAll(CaptureType.getCookieCaptureTypes());
+        proxy.setHarCaptureTypes(captureTypes);
         proxy.newHar();
     }
 

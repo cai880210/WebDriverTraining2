@@ -19,6 +19,8 @@ public interface AutomatedBrowser {
 
     void captureHarFile();
 
+    void captureCompleteHarFile();
+
     void saveHarFile(String file);
 
     void clickElementWithId(String id);
